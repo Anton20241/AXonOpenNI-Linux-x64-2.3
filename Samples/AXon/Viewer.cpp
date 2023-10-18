@@ -215,27 +215,9 @@ void SampleViewer::display()
 	switch (changedIndex)
 	{
 	case 0:
-	{
-		m_depthStream.readFrame(&m_depthFrame); 
-
-		openni::VideoMode &m_videoMode = const_cast<openni::VideoMode &> (m_depthFrame.getVideoMode());
-		std::cout << m_videoMode.getPixelFormat() << std::endl;
-
-		uint16_t * pix_deth = static_cast<uint16_t*>(const_cast<void*> (m_depthFrame.getData()));
-
-		for (size_t i = 0; i < 480; i++){
-			for (size_t j = 0; j < 640; j++){
-				outOfstream << pix_deth[i*480 + j] << " ";
-				std::cout 	<< pix_deth[i*480 + j] << " ";
-			}
-			outOfstream << "\n";
-			std::cout 	<< "\n";
-		}
-		outOfstream.close();
-	}
-		break;
-	// case 1:
-	// 	m_colorStream.readFrame(&m_colorFrame); break;
+		m_depthStream.readFrame(&m_depthFrame); break;
+	case 1:
+		m_colorStream.readFrame(&m_colorFrame); break;
 	default:
 		printf("Error in wait\n");
 	}

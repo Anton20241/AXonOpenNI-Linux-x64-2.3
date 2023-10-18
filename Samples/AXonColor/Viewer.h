@@ -22,6 +22,11 @@
 #define _ONI_SAMPLE_VIEWER_H_
 
 #include <OpenNI.h>
+#include<iostream>
+#include<fstream>
+#include<string.h>
+#include <ostream>
+#include <ctime>
 
 #define MAX_DEPTH 10000
 
@@ -62,6 +67,10 @@ protected:
 private:
 	SampleViewer(const SampleViewer&);
 	SampleViewer& operator=(SampleViewer&);
+
+	int start;
+	bool is_wrote;
+
     void SaveFrame(const void *data, unsigned int nSize);
 
 	static SampleViewer* ms_self;

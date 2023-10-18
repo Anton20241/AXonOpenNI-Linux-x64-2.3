@@ -61,6 +61,8 @@ SampleViewer::SampleViewer(const char* strSampleName, openni::Device& device, op
 	m_device(device), m_depthStream(depth), m_streams(NULL), m_eViewState(DEFAULT_DISPLAY_MODE), m_pTexMap(NULL)
 
 {
+	is_wrote = false;
+	start = clock();
 	ms_self = this;
 	strncpy(m_strSampleName, strSampleName, ONI_MAX_STR - 1);
     m_frameindex = 0;
@@ -172,6 +174,31 @@ void SampleViewer::display()
 	// 	m_colorStream.readFrame(&m_colorFrame); break;
 	default:
 		printf("Error in wait\n");
+	}
+
+	uint16_t * pix_deth = static_cast<uint16_t*>(const_cast<void*>( m_depthFrame.getData() ));
+	std::cout << "m_depthFrame.getDataSize() = " << m_depthFrame.getDataSize() << std::endl;
+
+	int end = clock();
+  if ((end - start) / CLOCKS_PER_SEC > 5 && !is_wrote){
+		is_wrote = true;
+		
+		std::ofstream outOfstream;
+		outOfstream.open("m_depthFrame.txt");
+		assert(outOfstream.is_open());
+		printf("\noutOfstream.is_open()\n");
+
+		for (size_t i = 0; i < 480; i++){
+			for (size_t j = 0; j < 640; j++){
+				std::cout << "i = " << i << " j = " << j << std::endl;
+				outOfstream << pix_deth[i*640 + j] << " ";
+				// std::cout 	<< pix_deth[i*640 + j] << " ";
+			}
+			outOfstream << "\n";
+			// std::cout 	<< "\n";
+		}
+		std::cout << "\nSUCCESS WRITE\n";
+		outOfstream.close();
 	}
 
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

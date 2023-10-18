@@ -169,6 +169,7 @@ void SampleViewer::display()
 	}
 
 	uint16_t * pix_deth = static_cast<uint16_t*>(const_cast<void*>( m_depthFrame.getData() ));
+	std::cout << "m_depthFrame.getDataSize() = " << m_depthFrame.getDataSize() << std::endl;
 
 	int end = clock();
   if ((end - start) / CLOCKS_PER_SEC > 5 && !is_wrote){
