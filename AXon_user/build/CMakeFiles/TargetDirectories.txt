@@ -1,0 +1,3 @@
+/home/anton20241/AXon_user/build/CMakeFiles/rebuild_cache.dir
+/home/anton20241/AXon_user/build/CMakeFiles/edit_cache.dir
+/home/anton20241/AXon_user/build/CMakeFiles/AXon.dir
